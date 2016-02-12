@@ -4,6 +4,7 @@ var $ = require('jquery');
 // My components
 var LoginPage = require('./loginpage.js');
 var FamilyPage = require('./familypage.js');
+var KidHashDisplay = require('./kidhashdisplay.jsx');
 
 module.exports = React.createClass({
   handleLogin: function(response) {
@@ -16,9 +17,12 @@ module.exports = React.createClass({
     }
   },
   getInitialState: function() {
-    return { loginToken: sessionStorage.getItem('loginToken') }
+    return { hash: window.location.hash.substr(1), loginToken: sessionStorage.getItem('loginToken') }
   },
   componentWillMount: function() {
+    if (this.state.hash.length == 8) {
+      return;
+    }
     console.log("Checking login token")
     $.ajax({
       url: '/api/logincheck',
@@ -35,7 +39,11 @@ module.exports = React.createClass({
     });
   },
   render: function() {
-    if (this.state.loginToken) {
+    var hash = window.location.hash.substr(1);
+    if (hash.length == 8) {
+      return( <KidHashDisplay token={hash} /> );
+    }
+    else if (this.state.loginToken) {
         return ( <FamilyPage loginToken={this.state.loginToken} /> );
     }
     else {

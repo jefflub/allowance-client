@@ -7,7 +7,8 @@ var $ = require('jquery');
 
 module.exports = React.createClass({
   getInitialState: function() {
-    return {amount: '', note: '', bucketId: 0};
+    console.log( 'Setting inital bucket id to: ' + this.props.kid.buckets[0].id )
+    return {amount: '', note: '', bucketId: this.props.kid.buckets[0].id};
   },
   handleAmountChange: function(e) {
     this.setState( {amount: e.target.value});

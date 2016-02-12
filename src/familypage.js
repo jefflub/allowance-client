@@ -40,9 +40,12 @@ module.exports = React.createClass({
   },
   render: function() {
     if (this.state.familyData) {
-      var kidInfo = this.state.familyData.kids.map( function(kid) {
-        return(<KidWithBuckets key={kid.id} kid={kid} loginToken={this.props.loginToken} refresh={this.refreshDataFromServer}/>);
-      }, this);
+      var kidInfo = <h2>No kids yet</h2>
+      if (this.state.familyData.kids) {
+        kidInfo = this.state.familyData.kids.map( function(kid) {
+          return(<KidWithBuckets key={kid.id} kid={kid} loginToken={this.props.loginToken} refresh={this.refreshDataFromServer}/>);
+        }, this);
+      }
       return( <div>
                 <h1>The {this.state.familyData.name} Family Info</h1>
                 <AddKidModal show={this.state.showAddKidModal} onHide={this.closeAddKidModal} loginToken={this.props.loginToken} onSuccess={this.onAddKidSuccess}/>
