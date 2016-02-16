@@ -8,7 +8,7 @@ module.exports = React.createClass({
       return(
         <tr key={bucket.id}>
           <td>{bucket.name}</td>
-          <td>{numeral(bucket.total).format('$0,0.00')}</td>
+          <td className="text-right">{numeral(bucket.total).format('$0,0.00')}</td>
         </tr>
       )
     }, this);
@@ -16,7 +16,7 @@ module.exports = React.createClass({
               <thead>
                 <tr>
                   <th>Bucket</th>
-                  <th>Amount</th>
+                  <th className="text-right">Amount</th>
                 </tr>
               </thead>
               <tbody>

@@ -5,6 +5,10 @@ var $ = require('jquery');
 var LoginPage = require('./loginpage.js');
 var FamilyPage = require('./familypage.js');
 var KidHashDisplay = require('./kidhashdisplay.jsx');
+//var Router = require('react-router').Router
+//var Route = require('react-router').Route
+//var IndexRoute = require('react-router').IndexRoute
+//var browserHistory = require('react-router').browserHistory
 
 module.exports = React.createClass({
   handleLogin: function(response) {
@@ -15,6 +19,9 @@ module.exports = React.createClass({
       sessionStorage.removeItem('loginToken');
       this.setState( {loginToken: null} );
     }
+  },
+  handleLogout: function() {
+    this.handleLogin(null);
   },
   getInitialState: function() {
     return { hash: window.location.hash.substr(1), loginToken: sessionStorage.getItem('loginToken') }
@@ -44,7 +51,7 @@ module.exports = React.createClass({
       return( <KidHashDisplay token={hash} /> );
     }
     else if (this.state.loginToken) {
-        return ( <FamilyPage loginToken={this.state.loginToken} /> );
+        return ( <FamilyPage loginToken={this.state.loginToken} onLogout={this.handleLogout}/> );
     }
     else {
       return( <LoginPage onLoginSuccess={this.handleLogin} /> );

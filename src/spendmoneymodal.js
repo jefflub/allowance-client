@@ -45,7 +45,7 @@ module.exports = React.createClass({
               </Modal.Header>
               <Modal.Body>
               <form onSubmit={this.handleSubmit}>
-                <Input type="number" label="Amount" value={this.state.amount} onChange={this.handleAmountChange} placeholder="0.0" />
+                <Input type="number" addonBefore="$" label="Amount" value={this.state.amount} onChange={this.handleAmountChange} placeholder="0.0" />
                 <Input type="text" label="Note" value={this.state.note} onChange={this.handleNoteChange} />
                 <select label="Bucket" value={this.state.bucketId} onChange={this.handleBucketChange}>
                   {bucketOptions}

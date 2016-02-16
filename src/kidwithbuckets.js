@@ -1,13 +1,17 @@
 var React = require('react');
 var Table = require('react-bootstrap').Table;
+var Button = require('react-bootstrap').Button;
+var ButtonGroup = require('react-bootstrap').ButtonGroup;
+var Glyphicon = require('react-bootstrap').Glyphicon;
 
 var AddMoneyModal = require('./addmoneymodal.js');
 var SpendMoneyModal = require('./spendmoneymodal.js');
-var BucketTable = require('./buckettable.jsx')
+var BucketTable = require('./buckettable.jsx');
+var KidTokenModal = require('./kidtokenmodal.jsx');
 
 module.exports = React.createClass({
     getInitialState: function() {
-      return { showAddModal: false, showSpendModal: false };
+      return { showAddModal: false, showSpendModal: false, showLinkModal: false };
     },
     openAddModal: function() {
       this.setState( {showAddModal: true} );
@@ -21,6 +25,12 @@ module.exports = React.createClass({
     closeSpendModal: function() {
       this.setState( {showSpendModal: false} );
     },
+    openLinkModal: function() {
+      this.setState( {showLinkModal: true} );
+    },
+    closeLinkModal: function() {
+      this.setState( {showLinkModal: false} );
+    },
     onAddSuccess: function() {
       this.closeAddModal();
       this.props.refresh();
@@ -33,10 +43,15 @@ module.exports = React.createClass({
       return( <div>
                 <AddMoneyModal show={this.state.showAddModal} onHide={this.closeAddModal} onSuccess={this.onAddSuccess} kid={this.props.kid} loginToken={this.props.loginToken} />
                 <SpendMoneyModal show={this.state.showSpendModal} onHide={this.closeSpendModal} onSuccess={this.onSpendSuccess} kid={this.props.kid} loginToken={this.props.loginToken} />
-                <h3>Kid: {this.props.kid.name}</h3>
+                <KidTokenModal show={this.state.showLinkModal} onHide={this.closeLinkModal} kid={this.props.kid} loginToken={this.props.loginToken} />
+                <h3>{this.props.kid.name}&nbsp;&nbsp;
+                  <ButtonGroup bsSize="large">
+                      <Button onClick={this.openAddModal}><Glyphicon glyph="usd"/><Glyphicon glyph="arrow-up"/></Button>
+                      <Button onClick={this.openSpendModal}><Glyphicon glyph="usd"/><Glyphicon glyph="arrow-down"/></Button>
+                      <Button onClick={this.openLinkModal}><Glyphicon glyph="eye-open"/></Button>
+                  </ButtonGroup>
+                </h3>
                 <BucketTable kid={this.props.kid} />
-                <a href="#" onClick={this.openAddModal}>Add Money</a><br />
-                <a href="#" onClick={this.openSpendModal}>Spend Money</a>
               </div>
             );
     }

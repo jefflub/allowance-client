@@ -26,7 +26,7 @@ module.exports = React.createClass({
   render: function() {
     if ( this.state.kidData ) {
       return( <div>
-                <h1>Allowance info for {this.state.kidData.kid.name}</h1>
+                <h2>Allowance for {this.state.kidData.kid.name}</h2>
                 <BucketTable kid={this.state.kidData.kid} />
                 <h3>Recent transactions:</h3>
                 <TransactionTable transactions={this.state.kidData.transactions} />

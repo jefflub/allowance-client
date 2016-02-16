@@ -1,6 +1,7 @@
 var React = require('react');
 var Input = require('react-bootstrap').Input;
 var Button = require('react-bootstrap').Button;
+var ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 var ButtonInput = require('react-bootstrap').ButtonInput;
 var Modal = require('react-bootstrap').Modal;
 var $ = require('jquery');
@@ -37,10 +38,12 @@ module.exports = React.createClass({
              </Modal.Header>
              <Modal.Body>
              <form onSubmit={this.handleSubmit}>
-               <Input type="number" label="Amount" value={this.state.amount} onChange={this.handleAmountChange} placeholder="0.0" />
+               <Input type="number" addonBefore="$" label="Amount" value={this.state.amount} onChange={this.handleAmountChange} placeholder="0.0" />
                <Input type="text" label="Note" value={this.state.note} onChange={this.handleNoteChange} />
-               <ButtonInput type="submit" value="Add"  />
-               <Button onClick={this.props.onHide}>Close</Button>
+               <ButtonToolbar>
+                 <ButtonInput type="submit" value="Add"  />
+                 <Button onClick={this.props.onHide}>Close</Button>
+               </ButtonToolbar>
              </form>
              </Modal.Body>
            </Modal>

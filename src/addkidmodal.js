@@ -7,7 +7,7 @@ var $ = require('jquery');
 
 module.exports = React.createClass({
  getInitialState: function() {
-   return {name: '', email: ''};
+   return {name: '', email: '', allowance: '0.0'};
  },
  handleEmailChange: function(e) {
    this.setState( {email: e.target.value});
@@ -15,14 +15,18 @@ module.exports = React.createClass({
  handleNameChange: function(e) {
    this.setState( {name: e.target.value} );
  },
+ handleAllowanceChange: function(e) {
+   this.setState( {allowance: e.target.value} );
+ },
  handleSubmit: function() {
    $.ajax({
      url: '/api/createkid',
      dataType: 'json',
      type: 'POST',
      cache: false,
-     data: JSON.stringify({ token: this.props.loginToken, name: this.state.name, email: this.state.email }),
+     data: JSON.stringify({ token: this.props.loginToken, name: this.state.name, email: this.state.email, weeklyAllowance: Number(this.state.allowance) }),
      success: function(data) {
+       this.setState(this.getInitialState());
        this.props.onSuccess();
      }.bind(this),
      error: function(xhr, status, err) {
@@ -39,6 +43,7 @@ module.exports = React.createClass({
              <form onSubmit={this.handleSubmit}>
                <Input type="text" label="Name" value={this.state.name} onChange={this.handleNameChange} />
                <Input type="email" label="Email Address" value={this.state.email} onChange={this.handleEmailChange} placeholder="Enter Email" />
+               <Input type="number" addonBefore="$" label="Weekly Allowance" value={this.state.allowance} onChange={this.handleAllowanceChange} placeholder="0.0" />
                <ButtonInput type="submit" value="Add Kid" />
                <Button onClick={this.props.onHide}>Close</Button>
              </form>
