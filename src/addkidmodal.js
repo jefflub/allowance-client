@@ -18,7 +18,8 @@ module.exports = React.createClass({
  handleAllowanceChange: function(e) {
    this.setState( {allowance: e.target.value} );
  },
- handleSubmit: function() {
+ handleSubmit: function(e) {
+   e.preventDefault();
    $.ajax({
      url: '/api/createkid',
      dataType: 'json',
@@ -36,18 +37,20 @@ module.exports = React.createClass({
  },
  render: function() {
    return( <Modal show={this.props.show} onHide={this.props.onHide}>
+            <form onSubmit={this.handleSubmit}>
              <Modal.Header closeButton>
                <Modal.Title>Add kid</Modal.Title>
              </Modal.Header>
              <Modal.Body>
-             <form onSubmit={this.handleSubmit}>
                <Input type="text" label="Name" value={this.state.name} onChange={this.handleNameChange} />
                <Input type="email" label="Email Address" value={this.state.email} onChange={this.handleEmailChange} placeholder="Enter Email" />
                <Input type="number" addonBefore="$" label="Weekly Allowance" value={this.state.allowance} onChange={this.handleAllowanceChange} placeholder="0.0" />
-               <ButtonInput type="submit" value="Add Kid" />
-               <Button onClick={this.props.onHide}>Close</Button>
-             </form>
              </Modal.Body>
+             <Modal.Footer>
+               <Button type="submit" bsStyle="primary">Add</Button>
+               <Button onClick={this.props.onHide}>Cancel</Button>
+             </Modal.Footer>
+           </form>
            </Modal>
    );
  }

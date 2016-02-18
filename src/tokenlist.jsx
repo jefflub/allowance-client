@@ -2,12 +2,20 @@ var React = require('react');
 var Table = require('react-bootstrap').Table
 var Button = require('react-bootstrap').Button;
 var $ = require('jquery')
+var url = require('url');
 
 module.exports = React.createClass({
   getInitialState: function() {
     return {
       tokenList: null
     };
+  },
+  getFullUrl: function(token) {
+      var myUrl = url.parse( window.location.href );
+      console.log( myUrl )
+      myUrl.hash = "#" + token;
+      console.log(url.format(myUrl));
+      return url.format(myUrl);
   },
   componentWillMount: function() {
     $.ajax({
@@ -47,7 +55,7 @@ module.exports = React.createClass({
       rows = this.state.tokenList.map(function(t) {
         return(
           <tr>
-            <td>{t.linkToken}</td>
+            <td><a href={this.getFullUrl(t.linkToken)} target="_blank">{t.linkToken}</a></td>
             <td>{t.kidName}</td>
             <td><Button onClick={this.onDeleteLinkToken.bind(this, t.linkToken)}>Delete</Button></td>
           </tr>

@@ -18,11 +18,17 @@ module.exports = React.createClass({
  handlePasswordChange: function(e) {
    this.setState({password: e.target.value});
  },
- onHide: function() {
+ onHide: function(e) {
+   e.preventDefault();
    this.setState(this.getInitialState());
    this.props.onHide();
  },
- handleSubmit: function() {
+ handleSubmit: function(e) {
+   e.preventDefault();
+   if (this.state.success) {
+     return;
+   }
+
    $.ajax({
      url: '/api/addparent',
      dataType: 'json',
@@ -39,28 +45,31 @@ module.exports = React.createClass({
  },
  render: function() {
    var body;
-
+   var footer;
    if (this.state.success) {
      var mailto = "mailto:" + this.state.email + "?subject=You've been added to allowance manager&body=Visit " + window.location.href + " to get started!";
-     body = <div>New parent {this.state.name} added successfully. <a href={mailto}>Send an email</a> to let them know!
-              <Button onClick={this.onHide}>Close</Button>
-            </div>
+     body = (<Modal.Body>New parent {this.state.name} added successfully. <a href={mailto}>Send an email</a> to let them know!</Modal.Body>);
+     footer = (<Modal.Footer><Button bsStyle="primary" onClick={this.onHide}>Close</Button></Modal.Footer>);
+
    } else {
-      body = <form onSubmit={this.handleSubmit}>
+      body = <Modal.Body>
               <Input type="text" label="Parent Name" value={this.state.name} onChange={this.handleNameChange} />
               <Input type="email" label="Email Address" value={this.state.email} onChange={this.handleEmailChange} placeholder="Enter Email" />
               <Input type="password" value={this.state.password} onChange={this.handlePasswordChange} label="Password" />
-              <ButtonInput type="submit" value="Add Parent" />
-              <Button onClick={this.onHide}>Close</Button>
-            </form>
+            </Modal.Body>
+      footer = <Modal.Footer>
+                  <Button type="submit" bsStyle="primary">Add</Button>
+                  <Button onClick={this.onHide}>Cancel</Button>
+               </Modal.Footer>
    }
    return( <Modal show={this.props.show} onHide={this.onHide}>
+            <form onSubmit={this.handleSubmit}>
              <Modal.Header closeButton>
                <Modal.Title>Add Parent</Modal.Title>
              </Modal.Header>
-             <Modal.Body>
-               {body}
-             </Modal.Body>
+             {body}
+             {footer}
+           </form>
            </Modal>
    );
  }

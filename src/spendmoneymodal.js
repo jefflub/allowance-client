@@ -20,7 +20,8 @@ module.exports = React.createClass({
     console.log( 'Changing bucket ID: ' + e.target.value );
     this.setState( {bucketId: e.target.value} );
   },
-  handleSubmit: function() {
+  handleSubmit: function(e) {
+    e.preventDefault();
     $.ajax({
       url: '/api/spendmoney',
       dataType: 'json',
@@ -40,20 +41,22 @@ module.exports = React.createClass({
       return (<option key={bucket.id} value={bucket.id}>{bucket.name}</option>);
     }, this);
     return( <Modal show={this.props.show} onHide={this.props.onHide}>
+              <form onSubmit={this.handleSubmit}>
               <Modal.Header closeButton>
                 <Modal.Title>Spend money for {this.props.kid.name}</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-              <form onSubmit={this.handleSubmit}>
-                <Input type="number" addonBefore="$" label="Amount" value={this.state.amount} onChange={this.handleAmountChange} placeholder="0.0" />
+                <Input type="number" addonBefore="$" label="Amount" value={this.state.amount} onChange={this.handleAmountChange} placeholder="0.00" />
                 <Input type="text" label="Note" value={this.state.note} onChange={this.handleNoteChange} />
-                <select label="Bucket" value={this.state.bucketId} onChange={this.handleBucketChange}>
+                <Input type="select" label="Bucket" value={this.state.bucketId} onChange={this.handleBucketChange}>
                   {bucketOptions}
-                </select>
-                <ButtonInput type="submit" value="Spend"  />
-                <Button onClick={this.props.onHide}>Close</Button>
-              </form>
+                </Input>
               </Modal.Body>
+              <Modal.Footer>
+                <Button type="submit" bsStyle="primary">Spend</Button>
+                <Button onClick={this.props.onHide}>Cancel</Button>
+              </Modal.Footer>
+            </form>
             </Modal>
     );
   }
