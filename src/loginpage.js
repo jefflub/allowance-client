@@ -5,7 +5,7 @@ var $ = require('jquery');
 
 module.exports = React.createClass({
   getInitialState: function() {
-      return {email: '', password: '', familyName: '', parentName: '', registering: false};
+      return {email: '', password: '', familyName: '', parentName: '', registering: false, loginError: false};
   },
   handleEmailChange: function(e) {
     this.setState({email: e.target.value});
@@ -37,6 +37,7 @@ module.exports = React.createClass({
       }.bind(this),
       error: function(xhr, status, err) {
         console.error('Error', status, err.toString());
+        this.setState({loginError: true})
       }.bind(this)
     });
   },
@@ -70,11 +71,16 @@ module.exports = React.createClass({
     this.setState({registering: false});
   },
   render: function() {
+      var errMsg = '';
+      if (this.state.loginError) {
+        errMsg = (<p className="bg-danger">Invalid email or password.</p>)
+      }
       if (this.state.registering == false) {
         return (
           <div className="loginBox">
           <form onSubmit={this.handleLoginSubmit}>
           <h2>Log in or <a href="#" onClick={this.showRegistration}>register</a></h2>
+          {errMsg}
           <Input type="email" label="Email Address" value={this.state.email} onChange={this.handleEmailChange} placeholder="Enter Email" />
           <Input type="password" value={this.state.password} onChange={this.handlePasswordChange} label="Password" />
           <ButtonInput type="submit" value="Login"  />

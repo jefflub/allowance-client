@@ -58,7 +58,7 @@ module.exports = React.createClass({
                   <ButtonGroup bsSize="large">
                       <Button onClick={this.openAddModal}><Glyphicon glyph="usd"/><Glyphicon glyph="arrow-up"/></Button>
                       <Button onClick={this.openSpendModal}><Glyphicon glyph="usd"/><Glyphicon glyph="arrow-down"/></Button>
-                      <Dropdown id={`kid-dropdown-${this.props.kid.id}`}>
+                      <Dropdown pullRight id={`kid-dropdown-${this.props.kid.id}`}>
                         <Dropdown.Toggle noCaret bsSize="large">
                           <Glyphicon glyph="option-vertical" />
                         </Dropdown.Toggle>
