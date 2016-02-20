@@ -72,7 +72,7 @@ module.exports = React.createClass({
       }
       var refreshIcon = this.state.refreshing ? <Glyphicon glyph="refresh" /> : '';
       var menuButton = (
-          <Dropdown>
+          <Dropdown id="family-dropdown">
             <Dropdown.Toggle noCaret>
               <Glyphicon glyph="menu-hamburger" />
             </Dropdown.Toggle>

@@ -37,7 +37,7 @@ module.exports = React.createClass({
     if (this.state.linkToken) {
       body = <div>Here is the link: <a href={this.getFullUrl()} target="_blank">{this.getFullUrl()}</a></div>
     } else {
-      body = <div>This will create a link that can be used by {this.props.kid.name} to see their current
+      body = <div>This will create a link that can be used by {this.props.kid.name} to see current
             balances and recent transactions without being able to make any changes.</div>
     }
     return (
