@@ -79,9 +79,9 @@ module.exports = React.createClass({
             <Dropdown.Menu>
               <MenuItem eventKey="1" onSelect={this.openAddKidModal}>Add Kid</MenuItem>
               <MenuItem eventKey="2" onSelect={this.openAddParentModal}>Add Parent</MenuItem>
-              <MenuItem eventKey="4" onSelect={this.openManageLinksModal}>Manage View Links</MenuItem>
+              <MenuItem eventKey="3" onSelect={this.openManageLinksModal}>Manage View Links</MenuItem>
               <MenuItem divider />
-              <MenuItem eventKey="3" onSelect={this.props.onLogout}>Sign Out</MenuItem>
+              <MenuItem eventKey="4" onSelect={this.props.onLogout}>Sign Out</MenuItem>
             </Dropdown.Menu>
           </Dropdown>
       );
