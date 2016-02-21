@@ -56,8 +56,8 @@ module.exports = React.createClass({
                 <ViewKidTransactionsModal show={this.state.showTransactionsModal} onHide={this.closeTransactionsModal} kid={this.props.kid} loginToken={this.props.loginToken} pageSize={10}/>
                 <h3>{this.props.kid.name}&nbsp;&nbsp;
                   <ButtonGroup bsSize="large">
-                      <Button onClick={this.openAddModal}><Glyphicon glyph="usd"/><Glyphicon glyph="arrow-up"/></Button>
-                      <Button onClick={this.openSpendModal}><Glyphicon glyph="usd"/><Glyphicon glyph="arrow-down"/></Button>
+                      <Button onClick={this.openAddModal}><Glyphicon glyph="plus-sign"/><Glyphicon glyph="usd"/></Button>
+                      <Button onClick={this.openSpendModal}><Glyphicon glyph="minus-sign"/><Glyphicon glyph="usd"/></Button>
                       <Dropdown pullRight id={`kid-dropdown-${this.props.kid.id}`}>
                         <Dropdown.Toggle noCaret bsSize="large">
                           <Glyphicon glyph="option-vertical" />

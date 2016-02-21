@@ -5,7 +5,7 @@ var $ = require('jquery');
 
 module.exports = React.createClass({
   getInitialState: function() {
-      return {email: '', password: '', familyName: '', parentName: '', registering: false, loginError: false};
+      return {email: '', password: '', familyName: '', parentName: '', registering: false, loginError: false, rememberMe: false};
   },
   handleEmailChange: function(e) {
     this.setState({email: e.target.value});
@@ -18,6 +18,9 @@ module.exports = React.createClass({
   },
   handleParentNameChange: function(e) {
     this.setState({parentName: e.target.value});
+  },
+  handleRememberMeChange: function(e) {
+    this.setState({rememberMe: e.target.value});
   },
   handleLoginSubmit: function(e) {
     e.preventDefault();

@@ -86,7 +86,7 @@ module.exports = React.createClass({
           </Dropdown>
       );
       return( <div>
-                <PageHeader>{menuButton} {this.state.familyData.name} Family Allowances {refreshIcon}</PageHeader>
+                <h2>{menuButton} {this.state.familyData.name} Family Allowances {refreshIcon}</h2>
                 <AddKidModal show={this.state.showAddKidModal} onHide={this.closeAddKidModal} loginToken={this.props.loginToken} onSuccess={this.onAddKidSuccess}/>
                 <AddParentModal show={this.state.showAddParentModal} onHide={this.closeAddParentModal} loginToken={this.props.loginToken} onSuccess={this.onAddParentSuccess} />
                 <TokenListModal show={this.state.showManageLinksModal} onHide={this.closeManageLinksModal} loginToken={this.props.loginToken} />

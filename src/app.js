@@ -14,9 +14,9 @@ module.exports = React.createClass({
   handleLogin: function(response) {
     if ( response ) {
       this.setState( {loginToken: response.token} );
-      sessionStorage.setItem('loginToken', response.token);
+      localStorage.setItem('loginToken', response.token);
     } else {
-      sessionStorage.removeItem('loginToken');
+      localStorage.removeItem('loginToken');
       this.setState( {loginToken: null} );
     }
   },
@@ -24,7 +24,7 @@ module.exports = React.createClass({
     this.handleLogin(null);
   },
   getInitialState: function() {
-    return { hash: window.location.hash.substr(1), loginToken: sessionStorage.getItem('loginToken') }
+    return { hash: window.location.hash.substr(1), loginToken: localStorage.getItem('loginToken') }
   },
   componentWillMount: function() {
     if (this.state.hash.length == 8) {
