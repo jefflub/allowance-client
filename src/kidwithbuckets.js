@@ -11,7 +11,7 @@ var SpendMoneyModal = require('./spendmoneymodal.js');
 var BucketTable = require('./buckettable.jsx');
 var KidTokenModal = require('./kidtokenmodal.jsx');
 var ViewKidTransactionsModal = require('./viewkidtransactionsmodal.jsx');
-
+var EditKidModal = require('./editkidmodal.jsx');
 module.exports = React.createClass({
     getInitialState: function() {
       return { showAddModal: false, showSpendModal: false, showLinkModal: false };
@@ -40,6 +40,12 @@ module.exports = React.createClass({
     closeTransactionsModal: function() {
       this.setState( {showTransactionsModal: false} );
     },
+    openEditModal: function() {
+      this.setState( {showEditModal: true} );
+    },
+    closeEditModal: function() {
+      this.setState( {showEditModal: false} );
+    },
     onAddSuccess: function() {
       this.closeAddModal();
       this.props.refresh();
@@ -48,12 +54,17 @@ module.exports = React.createClass({
       this.closeSpendModal();
       this.props.refresh();
     },
+    onEditSuccess: function() {
+      this.closeEditModal();
+      this.props.refresh();
+    },
     render: function() {
       return( <div>
                 <AddMoneyModal show={this.state.showAddModal} onHide={this.closeAddModal} onSuccess={this.onAddSuccess} kid={this.props.kid} loginToken={this.props.loginToken} />
                 <SpendMoneyModal show={this.state.showSpendModal} onHide={this.closeSpendModal} onSuccess={this.onSpendSuccess} kid={this.props.kid} loginToken={this.props.loginToken} />
                 <KidTokenModal show={this.state.showLinkModal} onHide={this.closeLinkModal} kid={this.props.kid} loginToken={this.props.loginToken} />
                 <ViewKidTransactionsModal show={this.state.showTransactionsModal} onHide={this.closeTransactionsModal} kid={this.props.kid} loginToken={this.props.loginToken} pageSize={10}/>
+                <EditKidModal show={this.state.showEditModal} onHide={this.closeEditModal} kid={this.props.kid} loginToken={this.props.loginToken} onSuccess={this.onEditSuccess} />
                 <h3>{this.props.kid.name}&nbsp;&nbsp;
                   <ButtonGroup bsSize="large">
                       <Button onClick={this.openAddModal}><Glyphicon glyph="plus-sign"/><Glyphicon glyph="usd"/></Button>
@@ -64,7 +75,7 @@ module.exports = React.createClass({
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                           <MenuItem eventKey="1" onSelect={this.openTransactionsModal}>Transaction History</MenuItem>
-                          <MenuItem eventKey="2">Edit Kid</MenuItem>
+                          <MenuItem eventKey="2" onSelect={this.openEditModal}>Edit Kid</MenuItem>
                           <MenuItem eventKey="3" onSelect={this.openLinkModal}>Create View Link</MenuItem>
                         </Dropdown.Menu>
                       </Dropdown>

@@ -7,7 +7,7 @@ var $ = require('jquery');
 
 module.exports = React.createClass({
  getInitialState: function() {
-   return {name: '', email: '', allowance: '0.0'};
+   return {name: this.props.kid.name, email: this.props.kid.email, allowance: this.props.kid.weeklyAllowance};
  },
  handleEmailChange: function(e) {
    this.setState( {email: e.target.value});
@@ -21,13 +21,12 @@ module.exports = React.createClass({
  handleSubmit: function(e) {
    e.preventDefault();
    $.ajax({
-     url: '/api/createkid',
+     url: '/api/editkid',
      dataType: 'json',
      type: 'POST',
      cache: false,
-     data: JSON.stringify({ token: this.props.loginToken, name: this.state.name, email: this.state.email, weeklyAllowance: Number(this.state.allowance) }),
+     data: JSON.stringify({ token: this.props.loginToken, kidId: this.props.kid.id, name: this.state.name, email: this.state.email, weeklyAllowance: Number(this.state.allowance) }),
      success: function(data) {
-       this.setState(this.getInitialState());
        this.props.onSuccess();
      }.bind(this),
      error: function(xhr, status, err) {
@@ -39,7 +38,7 @@ module.exports = React.createClass({
    return( <Modal show={this.props.show} onHide={this.props.onHide}>
             <form onSubmit={this.handleSubmit}>
              <Modal.Header closeButton>
-               <Modal.Title>Add kid</Modal.Title>
+               <Modal.Title>Edit {this.props.kid.name}</Modal.Title>
              </Modal.Header>
              <Modal.Body>
                <Input type="text" label="Name" value={this.state.name} onChange={this.handleNameChange} />
@@ -47,7 +46,7 @@ module.exports = React.createClass({
                <Input type="number" addonBefore="$" label="Weekly Allowance" value={this.state.allowance} onChange={this.handleAllowanceChange} placeholder="0.00" />
              </Modal.Body>
              <Modal.Footer>
-               <Button type="submit" bsStyle="primary">Add</Button>
+               <Button type="submit" bsStyle="primary">Save</Button>
                <Button onClick={this.props.onHide}>Cancel</Button>
              </Modal.Footer>
            </form>
