@@ -7,7 +7,7 @@ var $ = require('jquery');
 
 module.exports = React.createClass({
  getInitialState: function() {
-   return {name: '', email: '', allowance: '0.0'};
+   return {name: '', email: '', allowance: ''};
  },
  handleEmailChange: function(e) {
    this.setState( {email: e.target.value});

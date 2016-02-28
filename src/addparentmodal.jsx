@@ -18,8 +18,7 @@ module.exports = React.createClass({
  handlePasswordChange: function(e) {
    this.setState({password: e.target.value});
  },
- onHide: function(e) {
-   e.preventDefault();
+ onHide: function() {
    this.setState(this.getInitialState());
    this.props.onHide();
  },

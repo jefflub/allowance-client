@@ -12,9 +12,7 @@ module.exports = React.createClass({
   },
   getFullUrl: function(token) {
       var myUrl = url.parse( window.location.href );
-      console.log( myUrl )
       myUrl.hash = "#" + token;
-      console.log(url.format(myUrl));
       return url.format(myUrl);
   },
   componentWillMount: function() {
@@ -25,7 +23,6 @@ module.exports = React.createClass({
       cache: false,
       data: JSON.stringify({ token: this.props.loginToken }),
       success: function(data) {
-        console.log('Got tokens: ' + data.linkTokens.length)
         this.setState( {tokenList: data.linkTokens} )
       }.bind(this),
       error: function(xhr, status, err) {
@@ -41,7 +38,6 @@ module.exports = React.createClass({
       cache: false,
       data: JSON.stringify({ token: this.props.loginToken, linkToken: linkToken}),
       success: function(data) {
-        console.log('Delete got tokens: ' + data.linkTokens.length)
         this.setState( {tokenList: data.linkTokens} )
       }.bind(this),
       error: function(xhr, status, err) {
