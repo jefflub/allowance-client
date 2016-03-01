@@ -44,7 +44,7 @@ module.exports = React.createClass({
              <Modal.Body>
                <Input type="text" label="Name" value={this.state.name} onChange={this.handleNameChange} />
                <Input type="email" label="Email Address" value={this.state.email} onChange={this.handleEmailChange} placeholder="Enter Email" />
-               <Input type="number" addonBefore="$" label="Weekly Allowance" value={this.state.allowance} onChange={this.handleAllowanceChange} placeholder="0.00" />
+               <Input type="number" addonBefore="$" label="Weekly Allowance" value={this.state.allowance} onChange={this.handleAllowanceChange} placeholder="0.00" step="0.01"/>
              </Modal.Body>
              <Modal.Footer>
                <Button type="submit" bsStyle="primary">Add</Button>

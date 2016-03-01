@@ -50,7 +50,7 @@ module.exports = React.createClass({
                <Modal.Title>Add money for {this.props.kid.name}</Modal.Title>
              </Modal.Header>
              <Modal.Body>
-               <Input type="number" addonBefore="$" label="Amount" value={this.state.amount} onChange={this.handleAmountChange} placeholder="0.00" />
+               <Input type="number" addonBefore="$" label="Amount" value={this.state.amount} onChange={this.handleAmountChange} step=".01" placeholder="0.00" />
                <Input type="text" label="Note" value={this.state.note} onChange={this.handleNoteChange} />
                <Input type="select" label="Bucket" value={this.state.bucketId} onChange={this.handleBucketChange}>
                   <option key="-1" value="-1">Default allocation</option>
