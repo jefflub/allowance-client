@@ -27,6 +27,9 @@ module.exports = React.createClass({
     return { hash: window.location.hash.substr(1), loginToken: localStorage.getItem('loginToken') }
   },
   componentWillMount: function() {
+    if (!this.state.loginToken) {
+      return;
+    }
     if (this.state.hash.length == 8) {
       return;
     }
